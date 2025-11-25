@@ -2,12 +2,19 @@ import { Container, Heading, Text, Box } from "@chakra-ui/react";
 import "./App.css";
 import { CalculatorForm } from "./components/CalculatorForm";
 import { useState } from "react";
+import { applyDiscount } from "./utils/calculateDiscount";
 
 function App() {
   //state for number of items
   const [items, setItems] = useState<number | undefined>(undefined);
   const [price, setPrice] = useState<number | undefined>(undefined);
   const [region, setRegion] = useState<string>("");
+
+  // Calculate order and discounted value
+  const orderValue =
+    items !== undefined && price !== undefined ? items * price : undefined;
+  const discountedValue =
+    orderValue !== undefined ? applyDiscount(orderValue) : undefined;
 
   return (
     <>
@@ -39,7 +46,12 @@ function App() {
           shadow="sm"
           background="white"
         >
-          <Text color="gray.500">Form Results will go here</Text>
+          {/* <Text color="gray.500">Form Results will go here</Text> */}
+          {discountedValue !== undefined && (
+            <Text mt={4} fontWeight="bold">
+              Discounted Subtotal: ${discountedValue.toFixed(2)}
+            </Text>
+          )}
         </Box>
 
         {/* //ResultsCard component will be used here
