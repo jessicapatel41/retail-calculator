@@ -4,6 +4,7 @@ import { CalculatorForm } from "./components/CalculatorForm";
 import { useState } from "react";
 import { applyDiscount } from "./utils/calculateDiscount";
 import { applyTax } from "./utils/calculateTax";
+import ResultsCard from "./components/ResultsCard";
 
 function App() {
   //state for number of items
@@ -25,7 +26,7 @@ function App() {
 
   return (
     <>
-      <Box minH="100vh" bg="gray.100" py={10} borderRadius="lg">
+      <Box bg="gray.100" py={10} borderRadius="lg">
         <Container maxW="lg" p={10}>
           {/* Main Heading and Sub Text */}
           <Box textAlign="center" mb={6}>
@@ -45,30 +46,23 @@ function App() {
           region={region}
           setRegion={setRegion}
         />
-        <Box
-          borderWidth="1px"
-          borderRadius="lg"
-          p={6}
-          m={4}
-          shadow="sm"
-          background="white"
-        >
-          {/* TEMP result values */}
-          <Text fontWeight="bold">Form Results</Text>
-          {discountedValue !== undefined && (
-            <Text mt={4} fontWeight="light">
-              Discounted Subtotal: ${discountedValue.toFixed(2)}
-            </Text>
-          )}
-          {taxedValue !== undefined && (
-            <Text mt={2} fontWeight="light">
-              Subtotal With Tax: ${taxedValue.toFixed(2)}
-            </Text>
-          )}
-        </Box>
-
-        {/* //ResultsCard component will be used here
-      <ResultsCard />  */}
+        {orderValue && region && (
+          <Box
+            borderWidth="1px"
+            borderRadius="lg"
+            p={6}
+            m={4}
+            shadow="sm"
+            background="white"
+          >
+            <ResultsCard
+              orderValue={orderValue}
+              discountedValue={discountedValue}
+              taxedValue={taxedValue}
+              region={region}
+            />
+          </Box>
+        )}
       </Box>
     </>
   );
