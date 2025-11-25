@@ -7,6 +7,7 @@ function App() {
   //state for number of items
   const [items, setItems] = useState<number | undefined>(undefined);
   const [price, setPrice] = useState<number | undefined>(undefined);
+  const [region, setRegion] = useState<string>("");
 
   return (
     <>
@@ -27,6 +28,8 @@ function App() {
           setItems={setItems}
           price={price}
           setPrice={setPrice}
+          region={region}
+          setRegion={setRegion}
         />
         <Box
           borderWidth="1px"
