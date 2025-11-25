@@ -5,6 +5,7 @@ import {
   Input,
   VStack,
   Select,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 
 interface CalculatorFormProps {
@@ -59,7 +60,7 @@ export const CalculatorForm = ({
         </FormControl>
 
         {/* Region Selection */}
-        <FormControl id="region" mb={4} px={8}>
+        <FormControl id="region" mb={4} px={8} isInvalid={region === ""}>
           <FormLabel>Region</FormLabel>
           <Select
             placeholder="Select region"
@@ -72,6 +73,10 @@ export const CalculatorForm = ({
             <option value="CHC">CHC</option>
             <option value="TAS">TAS</option>
           </Select>
+
+          {region === "" && (
+            <FormErrorMessage>Please select a region.</FormErrorMessage>
+          )}
         </FormControl>
       </VStack>
     </>
