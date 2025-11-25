@@ -5,6 +5,7 @@ import {
   Input,
   VStack,
   Select,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 
 interface CalculatorFormProps {
@@ -28,7 +29,12 @@ export const CalculatorForm = ({
     <>
       <VStack spacing={4} align="stretch" mb={4}>
         {/* Number of Items */}
-        <FormControl id="quantity" mb={4} px={8}>
+        <FormControl
+          id="quantity"
+          mb={4}
+          px={8}
+          isInvalid={items !== undefined && items <= 0}
+        >
           <FormLabel>Number of Items</FormLabel>
           <Input
             type="number"
@@ -40,12 +46,19 @@ export const CalculatorForm = ({
             }}
             placeholder="Enter number of items"
           />
+          {items !== undefined && items <= 0 && (
+            <FormErrorMessage>Items must be greater than 0.</FormErrorMessage>
+          )}
         </FormControl>
 
         {/* Price per Item */}
-        <FormControl id="price" mb={4} px={8}>
+        <FormControl
+          id="price"
+          mb={4}
+          px={8}
+          isInvalid={price !== undefined && price <= 0}
+        >
           <FormLabel>Price per item</FormLabel>
-
           <Input
             type="number"
             value={price ?? ""}
@@ -56,10 +69,13 @@ export const CalculatorForm = ({
             }}
             placeholder="Enter price per item"
           />
+          {price !== undefined && price <= 0 && (
+            <FormErrorMessage>Price must be greater than 0.</FormErrorMessage>
+          )}
         </FormControl>
 
         {/* Region Selection */}
-        <FormControl id="region" mb={4} px={8}>
+        <FormControl id="region" mb={4} px={8} isInvalid={region === ""}>
           <FormLabel>Region</FormLabel>
           <Select
             placeholder="Select region"
@@ -72,6 +88,10 @@ export const CalculatorForm = ({
             <option value="CHC">CHC</option>
             <option value="TAS">TAS</option>
           </Select>
+
+          {region === "" && (
+            <FormErrorMessage>Please select a region.</FormErrorMessage>
+          )}
         </FormControl>
       </VStack>
     </>
