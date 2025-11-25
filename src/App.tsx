@@ -24,6 +24,14 @@ function App() {
       ? applyTax(discountedValue, region)
       : undefined;
 
+  // Validate inputs
+  const isValid =
+    items !== undefined &&
+    items > 0 &&
+    price !== undefined &&
+    price > 0 &&
+    region !== "";
+
   return (
     <>
       <Box bg="gray.100" py={10} borderRadius="lg">
@@ -46,7 +54,7 @@ function App() {
           region={region}
           setRegion={setRegion}
         />
-        {orderValue && region && (
+        {isValid && (
           <Box
             borderWidth="1px"
             borderRadius="lg"
