@@ -1,11 +1,19 @@
 //imports here
-import { FormLabel, FormControl, Input, VStack } from "@chakra-ui/react";
+import {
+  FormLabel,
+  FormControl,
+  Input,
+  VStack,
+  Select,
+} from "@chakra-ui/react";
 
 interface CalculatorFormProps {
   items: number | undefined;
   setItems: (value: number | undefined) => void;
   price: number | undefined;
   setPrice: (value: number | undefined) => void;
+  region: string;
+  setRegion: (value: string) => void;
 }
 
 export const CalculatorForm = ({
@@ -13,6 +21,8 @@ export const CalculatorForm = ({
   setItems,
   price,
   setPrice,
+  region,
+  setRegion,
 }: CalculatorFormProps) => {
   return (
     <>
@@ -46,6 +56,22 @@ export const CalculatorForm = ({
             }}
             placeholder="Enter price per item"
           />
+        </FormControl>
+
+        {/* Region Selection */}
+        <FormControl id="region" mb={4} px={8}>
+          <FormLabel>Region</FormLabel>
+          <Select
+            placeholder="Select region"
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+          >
+            <option value="AUK">AUK</option>
+            <option value="WLG">WLG</option>
+            <option value="WAI">WAI</option>
+            <option value="CHC">CHC</option>
+            <option value="TAS">TAS</option>
+          </Select>
         </FormControl>
       </VStack>
     </>
