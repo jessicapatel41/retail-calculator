@@ -6,6 +6,8 @@ import { useState } from "react";
 function App() {
   //state for number of items
   const [items, setItems] = useState<number | undefined>(undefined);
+  const [price, setPrice] = useState<number | undefined>(undefined);
+
   return (
     <>
       <Box minH="100vh" bg="gray.100" py={10} borderRadius="lg">
@@ -20,7 +22,12 @@ function App() {
         </Container>
 
         {/* Calculator form inputs are here */}
-        <CalculatorForm items={items} setItems={setItems} />
+        <CalculatorForm
+          items={items}
+          setItems={setItems}
+          price={price}
+          setPrice={setPrice}
+        />
         <Box
           borderWidth="1px"
           borderRadius="lg"

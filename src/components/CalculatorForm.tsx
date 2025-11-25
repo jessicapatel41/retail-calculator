@@ -1,30 +1,53 @@
 //imports here
-import { FormLabel, FormControl, Input } from "@chakra-ui/react";
+import { FormLabel, FormControl, Input, VStack } from "@chakra-ui/react";
 
-//interface for props
 interface CalculatorFormProps {
   items: number | undefined;
-  setItems: (value: number) => void;
+  setItems: (value: number | undefined) => void;
+  price: number | undefined;
+  setPrice: (value: number | undefined) => void;
 }
 
-export const CalculatorForm = ({ items, setItems }: CalculatorFormProps) => {
-  //function to handle input change
-  const handleChange = (valueString: string) => {
-    const value = valueString === "" ? undefined : Number(valueString); //convert to number or undefined
-    setItems(value!); //update state in parent
-  };
-
+export const CalculatorForm = ({
+  items,
+  setItems,
+  price,
+  setPrice,
+}: CalculatorFormProps) => {
   return (
     <>
-      <FormControl id="quantity" mb={4} px={8}>
-        <FormLabel>Number of Items</FormLabel>
-        <Input
-          type="number"
-          value={items ?? undefined} //show placeholder when undefined
-          onChange={(e) => handleChange(e.target.value)}
-          placeholder="Enter number of items"
-        />
-      </FormControl>
+      <VStack spacing={4} align="stretch" mb={4}>
+        {/* Number of Items */}
+        <FormControl id="quantity" mb={4} px={8}>
+          <FormLabel>Number of Items</FormLabel>
+          <Input
+            type="number"
+            value={items ?? undefined} //show placeholder when undefined
+            onChange={(e) => {
+              setItems(
+                e.target.value === "" ? undefined : Number(e.target.value)
+              );
+            }}
+            placeholder="Enter number of items"
+          />
+        </FormControl>
+
+        {/* Price per Item */}
+        <FormControl id="price" mb={4} px={8}>
+          <FormLabel>Price per item</FormLabel>
+
+          <Input
+            type="number"
+            value={price ?? ""}
+            onChange={(e) => {
+              setPrice(
+                e.target.value === "" ? undefined : Number(e.target.value)
+              );
+            }}
+            placeholder="Enter price per item"
+          />
+        </FormControl>
+      </VStack>
     </>
   );
 };
