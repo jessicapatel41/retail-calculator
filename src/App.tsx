@@ -3,6 +3,7 @@ import "./App.css";
 import { CalculatorForm } from "./components/CalculatorForm";
 import { useState } from "react";
 import { applyDiscount } from "./utils/calculateDiscount";
+import { applyTax } from "./utils/calculateTax";
 
 function App() {
   //state for number of items
@@ -15,6 +16,12 @@ function App() {
     items !== undefined && price !== undefined ? items * price : undefined;
   const discountedValue =
     orderValue !== undefined ? applyDiscount(orderValue) : undefined;
+
+  //Calculate final value with tax
+  const taxedValue =
+    discountedValue !== undefined && region
+      ? applyTax(discountedValue, region)
+      : undefined;
 
   return (
     <>
@@ -46,10 +53,16 @@ function App() {
           shadow="sm"
           background="white"
         >
-          {/* <Text color="gray.500">Form Results will go here</Text> */}
+          {/* TEMP result values */}
+          <Text fontWeight="bold">Form Results</Text>
           {discountedValue !== undefined && (
-            <Text mt={4} fontWeight="bold">
+            <Text mt={4} fontWeight="light">
               Discounted Subtotal: ${discountedValue.toFixed(2)}
+            </Text>
+          )}
+          {taxedValue !== undefined && (
+            <Text mt={2} fontWeight="light">
+              Subtotal With Tax: ${taxedValue.toFixed(2)}
             </Text>
           )}
         </Box>
